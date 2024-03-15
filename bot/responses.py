@@ -4,8 +4,10 @@ import subprocess
 import io
 import sys
 import traceback
-
-def runCode(code):
+#I don't recommend using runCode2 but instead use runCode1
+#runCode2 allows for global and local imports, allowing users to access libraries like os
+#trying to figure out a way to block import libraries
+def runCode1(code):
     try:
         result = subprocess.check_output(['python', '-c', code], stderr=subprocess.STDOUT, timeout=10)
         return ("```" + result.decode("utf-8") + "```")
@@ -39,6 +41,9 @@ def get_response(user_input: str) -> str:
 
     if lowered == '':
         return 'Well, you\'re awfully silent...'
+    elif 'eval' in lowered[0:4]:
+        code = lowered[len('eval'):].strip()
+        return runCode1(code)
     elif 'ai' in lowered:
         return chat(lowered[2:])
     elif 'hello' in lowered:

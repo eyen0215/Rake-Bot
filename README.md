@@ -1,2 +1,3 @@
 # Rake-Bot
-Basic discord bot constantly being updated
+Basic discord bot  
+constantly being updated
